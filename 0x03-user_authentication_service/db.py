@@ -37,7 +37,7 @@ class DB:
 
         user.email = email
         user.hashed_password = hashed_password
-        
+
         session_s = self._session
 
         session_s.add(user)
