@@ -5,6 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.exc import InvalidRequestError, NoResultFound
 
 from user import Base, User
 
@@ -44,3 +45,30 @@ class DB:
         session_s.commit()
 
         return user
+
+    def find_user_by(self, **kwargs):
+        """find user filtered by the parameters passed"""
+        if 'email' in kwargs:
+            session = self._session
+
+            result = session.query(User)\
+                .filter_by(email=kwargs.get('email')).first()
+
+            if not result:
+                raise NoResultFound
+
+            return result
+
+        if 'hashed_password' in kwargs:
+            session = self._session
+
+            result = session.query(User)\
+                .filter_by(hashed_password=kwargs
+                            .get('hashed_password')).first()
+
+            if not result:
+                raise NoResultFound
+
+            return result
+
+        raise InvalidRequestError
