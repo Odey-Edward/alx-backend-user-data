@@ -52,7 +52,7 @@ class DB:
             session = self._session
 
             result = session.query(User)\
-                .filter_by(email=kwargs.get('email')).first()
+                .filter_by(**kwargs).first()
 
             if not result:
                 raise NoResultFound
@@ -63,8 +63,7 @@ class DB:
             session = self._session
 
             result = session.query(User)\
-                .filter_by(hashed_password=kwargs
-                            .get('hashed_password')).first()
+                .filter_by(**kwargs).first()
 
             if not result:
                 raise NoResultFound
