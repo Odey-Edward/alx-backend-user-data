@@ -30,6 +30,7 @@ def users() -> str:
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login():
+    """login method"""
     if not request.form:
         abort(415)
 
@@ -47,7 +48,6 @@ def login():
     resp.set_cookie("session_id", id)
 
     return resp
-
 
 
 if __name__ == "__main__":
