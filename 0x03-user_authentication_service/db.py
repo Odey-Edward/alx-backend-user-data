@@ -63,15 +63,14 @@ class DB:
 
         return result
 
-    def update_user(self, user_id, **kwargs):
-        """update User user object"""
-        user = self.find_user_by(id=user_id)
-
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """
+        updating a user in the database
+        """
         session = self._session
-
-        if user:
-            for k, v in kwargs.items():
-                if k not in VALID_FIELDS:
-                    raise ValueError
-                setattr(user, k, v)
-            session.commit()
+        user = self.find_user_by(id=user_id)
+        for k, v in kwargs.items():
+            if k not in VALID_FIELDS:
+                raise ValueError
+            setattr(user, k, v)
+        session.commit()
