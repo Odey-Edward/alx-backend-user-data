@@ -36,8 +36,8 @@ class DB:
 
         user = User()
 
-        user.email=email
-        user.hashed_password=hashed_password
+        user.email = email
+        user.hashed_password = hashed_password
 
         session_s = self._session
 
