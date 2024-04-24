@@ -67,8 +67,11 @@ class DB:
         """update User user object"""
         user = self.find_user_by(id=user_id)
 
+        session = self._session
+
         if user:
             for k, v in kwargs.items():
                 if not hasattr(user, k):
                     raise ValueError
                 setattr(user, k, v)
+            session.commit()
