@@ -56,7 +56,7 @@ class DB:
 
         session = self._session
 
-        result = session.query(User).filter_by(**kwargs).first()
+        result = session.query(User).filter_by(**kwargs).one()
 
         if not result:
             raise NoResultFound
