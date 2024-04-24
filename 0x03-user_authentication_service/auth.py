@@ -61,3 +61,45 @@ class Auth:
         self._db.update_user(user.id, session_id=id)
 
         return id
+
+    def get_user_from_session_id(self, session_id):
+        """Find user by session ID"""
+        if not session_id:
+            return None
+
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+        except NoResultFound:
+            return None
+
+        return user
+
+    def destroy_session(self, user_id):
+        """Destroy session"""
+        self._db.update_user(user_id, session_id=None)
+
+    def get_reset_password_token(self, email):
+        """Generate reset password token"""
+        try:
+            user = self._db.find_user_by(email=email)
+        except NoResultFound:
+            raise ValueError
+
+        reset_token = _generate_uuid()
+
+        self._db.update_user(user.id, reset_token=reset_token)
+
+        return reset_token
+
+    def update_password(self, reset_token, password):
+        """ Update password"""
+        try:
+            user = self._db.find_user_by(reset_token=reset_token)
+        except NoResultFound:
+            raise ValueError
+
+        password = _hash_password(password)
+
+        data = dict(reset_token=None, hashed_password=password)
+
+        self._db.update_user(user.id, **data)
