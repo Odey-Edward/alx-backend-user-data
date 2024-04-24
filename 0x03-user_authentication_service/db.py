@@ -34,6 +34,9 @@ class DB:
     def add_user(self, email, hashed_password):
         """create and add new user to the database"""
 
+        if not email or not hashed_password:
+            return
+
         user = User(email=email, hashed_password=hashed_password)
 
         session_s = self._session
