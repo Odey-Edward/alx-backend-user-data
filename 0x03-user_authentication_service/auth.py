@@ -58,10 +58,6 @@ class Auth:
 
         id = _generate_uuid()
 
-        user.session_id = id
-
-        session = self._db._session
-
-        session.commit()
+        self._db.update_user(user.id, session_id=id)
 
         return id
