@@ -13,10 +13,11 @@ def _hash_password(password):
 
     return bcrypt.hashpw(password_bytes, bcrypt.gensalt())
 
-    
+
 def _generate_uuid(self):
     """return a string representation of a new UUID"""
     return str(uuid.uuid4())
+
 
 class Auth:
     """Auth class to interact with the authentication database.
