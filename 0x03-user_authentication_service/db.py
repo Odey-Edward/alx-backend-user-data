@@ -71,7 +71,7 @@ class DB:
 
         if user:
             for k, v in kwargs.items():
-                if not hasattr(user, k):
+                if k not in VALID_FIELDS:
                     raise ValueError
                 setattr(user, k, v)
             session.commit()
