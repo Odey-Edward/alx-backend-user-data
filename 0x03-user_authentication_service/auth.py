@@ -8,12 +8,10 @@ import uuid
 from typing import ByteString
 
 
-def _hash_password(password: str) -> str:
+def _hash_password(password: str) -> ByteString:
     """return hashed password"""
 
-    password_bytes = password.encode('utf-8')
-
-    return bcrypt.hashpw(password_bytes, bcrypt.gensalt())
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
 
 def _generate_uuid():
