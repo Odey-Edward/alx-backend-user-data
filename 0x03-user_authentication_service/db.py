@@ -62,7 +62,7 @@ class DB:
 
         return result
 
-    def update_user(self, user_id: int, **kwargs) -> None:
+    def update_user(self, user_id: int, **kwargs: Any) -> None:
         """
         updating a user in the database
         """
