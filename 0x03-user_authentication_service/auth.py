@@ -5,9 +5,10 @@ from db import DB
 from user import User
 from sqlalchemy.exc import NoResultFound
 import uuid
+from typing import ByteString
 
 
-def _hash_password(password):
+def _hash_password(password: str) -> ByteString:
     """return hashed password"""
 
     password_bytes = password.encode('utf-8')
