@@ -9,6 +9,7 @@ from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 
 from user import Base, User
+from typing import Any
 
 VALID_FIELDS = ['id', 'email', 'hashed_password', 'session_id', 'reset_token']
 
@@ -46,7 +47,7 @@ class DB:
         session.commit()
         return user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs: Any) -> User:
         """find user filtered by the parameters passed"""
 
         if not kwargs or any(k not in VALID_FIELDS for k in kwargs):
