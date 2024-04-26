@@ -47,7 +47,7 @@ class DB:
         session.commit()
         return user
 
-    def find_user_by(self, **kwargs: Any) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """find user filtered by the parameters passed"""
 
         if not kwargs or any(k not in VALID_FIELDS for k in kwargs):
@@ -62,7 +62,7 @@ class DB:
 
         return result
 
-    def update_user(self, user_id: int, **kwargs: Any) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """
         updating a user in the database
         """
