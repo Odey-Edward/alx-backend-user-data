@@ -37,12 +37,13 @@ class BasicAuth(Auth):
         if not isinstance(base64_authorization_header, str):
             return None
 
+        b64_auth_header = base64_authorization_header
+
         try:
-            value = base64.b64decode(base64_authorization_header)
+            decoded_value = base64.b64decode(b64_auth_header).decode('utf-8')
+            return decoded_value
         except Exception:
             return None
-
-        return value.decode('utf-8')
 
     def extract_user_credentials(
             self, decoded_base64_authorization_header: str) -> (str, str):
@@ -88,3 +89,25 @@ class BasicAuth(Auth):
 
         except Exception:
             return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """retrive current with Basic Authorization"""
+        auth_header = self.authorization_header(request)
+
+        if auth_header:
+            auth_value = self.extract_base64_authorization_header(auth_header)
+
+            if auth_value:
+                decoded_value = self.decode_base64_authorization_header(
+                        auth_value)
+
+                if decoded_value:
+                    user_data = self.extract_user_credentials(decoded_value)
+
+                    if user_data:
+                        user = self.user_object_from_credentials(
+                                user_data[0], user_data[1])
+
+                        if user:
+                            return user
+        return None
