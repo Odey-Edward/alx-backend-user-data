@@ -8,7 +8,7 @@ import uuid
 from typing import ByteString
 
 
-def _hash_password(password: str) -> ByteString:
+def _hash_password(password: str) -> str:
     """return hashed password"""
 
     password_bytes = password.encode('utf-8')
