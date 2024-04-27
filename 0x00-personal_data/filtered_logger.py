@@ -20,13 +20,13 @@ def get_logger() -> logging.Logger:
     """Create and return a logger"""
     logging.basicConfig(level=logging.INFO)
 
-    user_data = logging.getLoger('user_data')
+    user_data = logging.getLogger('user_data')
 
     user_data.propagate = False
 
-    handler = logging.StreamHandler
+    handler = logging.StreamHandler()
 
-    handler.setFormater(RedactingFormatter(PII_FIELDS))
+    handler.setFormatter(RedactingFormatter(PII_FIELDS))
 
     user_data.addHandler(handler)
 
