@@ -4,7 +4,7 @@ import re
 from typing import List
 import logging
 
-PII_FIELDS = ('email', 'ssn', 'password', 'ip', 'phone')
+PII_FIELDS = ('email', 'ssn', 'password', 'name', 'phone')
 
 
 def filter_datum(fields: List[str], redaction: str,
@@ -18,9 +18,10 @@ def filter_datum(fields: List[str], redaction: str,
 
 def get_logger() -> logging.Logger:
     """Create and return a logger"""
-    logging.basicConfig(level=logging.INFO)
 
     user_data = logging.getLogger('user_data')
+
+    user_data.setLevel(logging.INFO)
 
     user_data.propagate = False
 
