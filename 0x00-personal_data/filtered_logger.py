@@ -48,6 +48,19 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     return connection
 
 
+def main() -> None:
+    conn = get_db()
+
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM users")
+
+    result = cursor.fetchall()
+
+    for row in result:
+        print(row)
+
+
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
         """
@@ -68,3 +81,6 @@ class RedactingFormatter(logging.Formatter):
         record.msg = result
 
         return super().format(record)
+
+if __name__ == "__main__":
+    main()
