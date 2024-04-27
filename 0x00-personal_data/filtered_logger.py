@@ -52,6 +52,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 
 def main() -> None:
+    """ first method to execute"""
     conn = get_db()
 
     cursor = conn.cursor()
@@ -84,6 +85,7 @@ class RedactingFormatter(logging.Formatter):
         record.msg = result
 
         return super().format(record)
+
 
 if __name__ == "__main__":
     main()
